@@ -3,17 +3,14 @@ import { CancelNotification } from '@app/use-cases/cancel-notification';
 import { Notification } from '@app/entities/notifications';
 import { Content } from '@app/entities/content';
 import { NotificationNotFound } from './errors/notification-not-found';
+import { makeNotification } from '@test/factories/notification-factory';
 
 describe('Cancel notifications', () => {
   it('Should be able cancel a notification', async () => {
     const notificationsRepository = new InMemoryNotificationsRepository();
     const cancelNotification = new CancelNotification(notificationsRepository);
 
-    const notification = new Notification({
-      category: 'Social',
-      content: new Content('Nova solicitação'),
-      recipientId: 'example',
-    });
+    const notification = makeNotification();
 
     await notificationsRepository.create(notification);
 
